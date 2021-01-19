@@ -1,2 +1,2 @@
 # windowsconfig
-WindowsConfig ~ Config files for a windows machine
+WindowsConfig ~ Just simple themes for applications, preferences etc.
