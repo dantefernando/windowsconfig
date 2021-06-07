@@ -1,6 +1,6 @@
 call plug#begin('~/.vim/plugged')
-Plug 'ap/vim-css-color'
 
+Plug 'ap/vim-css-color'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'sheerun/vim-polyglot'
@@ -14,11 +14,6 @@ Plug 'rafi/awesome-vim-colorschemes'
 Plug 'tpope/vim-commentary'
 Plug 'ervandew/supertab'
 Plug 'nathanaelkane/vim-indent-guides'
-
-call plug#end()
-
-Plug 'ap/vim-css-color'
-Plug 'thinca/vim-fontzoom'
 
 call plug#end()
 
@@ -63,78 +58,50 @@ function MyDiff()
   endif
 endfunction
 
-set clipboard=unnamed
 set relativenumber
 set number
-:set tabstop=4
-au BufNewFile, Bufread *.py
-	\ set tabstop=4
-	\ set softtabstop=4
-	\ set shiftwidth=4
-	\ set textwidth=79
-	\ set expandtab
-	\ set autoindent
-	\ set fileformat=unix
-
-source $VIMRUNTIME/mswin.vim
-behave mswin
-
-colo slate
-
-nnoremap <C-Up> :silent! let &guifont = substitute(
- \ &guifont,
- \ ':h\zs\d\+',
- \ '\=eval(submatch(0)+1)',
- \ '')<CR>
-nnoremap <C-Down> :silent! let &guifont = substitute(
- \ &guifont,
- \ ':h\zs\d\+',
- \ '\=eval(submatch(0)-1)',
- \ '')<CR>
-
-nnoremap <F8> :noh <esc>
-nnoremap <F7> :IndentGuidesToggle <esc>
-nnoremap <F10> :tabnew <esc>
-nnoremap <C-TAB> :tabn <esc>
-nnoremap <F11> :tabp <esc>
-
-set dir=~/tmp
-set noundofile
 set guifont=:h15
 
+" Sets the leader key
+let mapleader =" " 
 
-set clipboard=unnamed
-set relativenumber
-set number
-:set tabstop=4
+" Compile document, be it markdown or py using compiler script
+" ~/.local/bin/compiler
+map <leader>c :w! \| !compiler "<c-r>%"<CR><esc>
 
-au BufNewFile,BufRead *.py,*.java,*.cpp,*.c,*.cs,*.rkt,*.h,*.html
-    \ set tabstop=4 |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4 |
-    \ set textwidth=120 |
-    \ set expandtab |
-    \ set autoindent |
-    \ set fileformat=unix |
+au BufNewFile,BufRead *.py,*.java,*.cpp,*.c,*.cs,*.rkt,*.h,*.html,*.txt,*.js
+     \ set tabstop=4 |
+     \ set softtabstop=4 |
+     \ set shiftwidth=4 |
+     \ set textwidth=120 |
+     \ set expandtab |
+     \ set autoindent |
+     \ set fileformat=unix |
 
-source $VIMRUNTIME/mswin.vim
-behave mswin
+colorscheme slate
+" colorscheme gruvbox
+colorscheme molokai
 
-" up to here del"
 set encoding=utf-8
-syntax on
 set laststatus=2
-" set showtabline=2
-set backspace=indent,eol,start " let backspace delete over lines
 set autoindent " enable auto indentation of lines
 set smartindent " allow vim to best-effort guess the indentation
 set hlsearch "highlights matching searches
 set showmatch "highlights matching brackets
 set wildmenu "graphical auto complete menu
-set noswapfile
 
-autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python' shellescape(@%, 1)<CR>
-autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python' shellescape(@%, 1)<CR>
+nnoremap <F8> :noh <esc>
+nnoremap <F7> :IndentGuidesToggle <esc>
+nnoremap <F10> :tabnew <esc>
+" nnoremap <C-TAB> :tabn <esc>
+nnoremap <F11> :tabp <esc>
+
+
+autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+
+autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
+
 
 " Start on vim Startup
 let g:indent_guides_enable_on_vim_startup = 0
@@ -145,4 +112,6 @@ let g:indent_guides_guide_size = 4
 " When it starts
 let g:indent_guides_start_level = 1
 
+" Set Vim Airline Theme
+let g:airline_theme='fruit_punch'
 
